@@ -25,9 +25,6 @@ body {
   background: #e8f7f0;
 }
 .container {
-  max-width: 1100px;
-  margin: auto;
-  overflow: auto;
-  padding: 0 2rem;
+  max-width: 1000px;
 }
 </style>

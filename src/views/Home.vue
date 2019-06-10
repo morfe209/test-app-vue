@@ -1,38 +1,30 @@
 <template>
   <div id="home">
-    <div class="container">
-      <AddTodo/>
-      <FilterTodos/>
-      <Todos/>
+    <div class="home">
+      <!-- <AddTodo/>
+      <FilterTodos/>-->
+      <Users/>
     </div>
   </div>
 </template>
 
 <script>
-import Todos from "../components/Todos.vue";
-import AddTodo from "../components/AddTodo.vue";
-import FilterTodos from "../components/FilterTodos.vue";
+import Users from "../components/Users.vue";
+// import AddTodo from "../components/AddTodo.vue";
+// import FilterTodos from "../components/FilterTodos.vue";
 
 export default {
   name: "Home",
   components: {
-    Todos,
-    AddTodo,
-    FilterTodos
+    Users
+    // AddTodo,
+    // FilterTodos
   }
 };
 </script>
 
 <style>
-body {
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  line-height: 1.6;
-  background: #e8f7f0;
-}
-.container {
-  max-width: 1100px;
-  margin: auto;
-  overflow: auto;
-  padding: 0 2rem;
+.home {
+  width: 100%;
 }
 </style>

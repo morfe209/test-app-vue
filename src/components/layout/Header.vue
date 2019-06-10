@@ -1,17 +1,21 @@
   
 <template>
   <header class="header">
-    <h1>TodoList</h1>
+    <h1>Users List</h1>
     <div id="nav">
-      <router-link to="/">Home</router-link>|
-      <router-link to="/about">About</router-link>|
-      <div v-if="!loggedIn">
+      <div class="nav-item">
+        <router-link to="/home">Home</router-link>|
+      </div>
+      <div class="nav-item">
+        <router-link to="/about">About</router-link>|
+      </div>
+      <div class="nav-item" v-if="!loggedIn">
         <router-link to="/login">Login</router-link>|
       </div>
-      <div v-if="!loggedIn">
-        <router-link to="/register">Register</router-link>|
+      <div class="nav-item" v-if="!loggedIn">
+        <router-link to="/register">Register</router-link>
       </div>
-      <div v-if="loggedIn">
+      <div class="nav-item" v-if="loggedIn">
         <router-link to="/logout">Logout</router-link>
       </div>
     </div>
@@ -31,7 +35,8 @@ export default {
 
 <style scoped>
 .header {
-  background: #333;
+  background: #343a40;
+  width: 100%;
   color: #fff;
   text-align: center;
   padding: 10px;
@@ -40,5 +45,8 @@ export default {
   color: #fff;
   padding-right: 5px;
   text-decoration: none;
+}
+.nav-item {
+  display: inline;
 }
 </style>

@@ -1,7 +1,8 @@
 import Vuex from "vuex";
 import Vue from "vue";
-import todos from "./modules/todos";
+import users from "./modules/users";
 import auth from "./modules/token";
+import address from "./modules/address";
 
 // Load Vuex
 Vue.use(Vuex);
@@ -9,7 +10,8 @@ Vue.use(Vuex);
 // Create store
 export default new Vuex.Store({
   modules: {
-    todos,
-    auth
+    users,
+    auth,
+    address
   }
 });

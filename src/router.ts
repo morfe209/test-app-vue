@@ -11,9 +11,12 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
-      path: "/",
+      path: "/home",
       name: "home",
-      component: Home
+      component: Home,
+      meta: {
+        requiresAuth: false
+      }
     },
     {
       path: "/about",
@@ -24,17 +27,23 @@ export default new Router({
       path: "/login",
       name: "login",
       component: Login,
-      props: true
+      meta: {
+        requiresVisitor: true
+      }
     },
     {
       path: "/register",
       name: "register",
-      component: Register
+      component: Register,
+      meta: {
+        requiresVisitor: true
+      }
     },
     {
       path: "/logout",
-      name: "register",
+      name: "logout",
       component: Logout
     }
   ]
+  // mode:'history'
 });
