@@ -9,8 +9,8 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!store.getters.loggedIn) {
       next({
-        path: "/login"
-        // query: { redirect: to.fullPath }
+        path: "/login",
+        query: { redirect: to.fullPath }
       });
     } else {
       next();
@@ -21,7 +21,7 @@ router.beforeEach((to, from, next) => {
 });
 
 new Vue({
-  router,
   store,
+  router,
   render: h => h(App)
 }).$mount("#app");

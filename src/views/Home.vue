@@ -1,28 +1,52 @@
 <template>
   <div id="home">
     <div class="home">
-      <!-- <AddTodo/>
-      <FilterTodos/>-->
-      <Users/>
+      <FilterUsers/>
+      <UsersTable
+        v-bind:users="users"
+        v-bind:cities="cities"
+        v-bind:countries="countries"
+        v-bind:states="states"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import Users from "../components/Users.vue";
-// import AddTodo from "../components/AddTodo.vue";
-// import FilterTodos from "../components/FilterTodos.vue";
+import UsersTable from "../components/UsersTable";
+import { mapActions } from "vuex";
+import FilterUsers from "../components/FilterUsers";
 
 export default {
   name: "Home",
   components: {
-    Users
-    // AddTodo,
-    // FilterTodos
+    FilterUsers,
+    UsersTable
+  },
+  data() {
+    return {
+      users: this.$store.state.users.listUser,
+      countries: this.$store.state.address.countries,
+      cities: this.$store.state.address.cities,
+      states: this.$store.state.address.states
+    };
+  },
+  methods: {
+    ...mapActions([
+      "fetchUsers",
+      "fetchCountries",
+      "fetchStates",
+      "fetchCities"
+    ])
+  },
+  created() {
+    this.fetchCountries();
+    this.fetchStates();
+    this.fetchCities();
+    this.fetchUsers();
   }
 };
 </script>
-
 <style>
 .home {
   width: 100%;

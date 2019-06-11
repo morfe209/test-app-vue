@@ -15,17 +15,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="user in allUsers" :key="user.id">
+        <tr v-for="user in users" :key="user.id">
           <td>{{user.name}}</td>
           <td>{{user.email}}</td>
           <td>{{user["phone_number"]}}</td>
 
-          <td>{{allCountries[0].name}}</td>
-          <td>{{allStates.find(state => state.id === user["state_id"]).name || ''}}</td>
-          <td>{{allCities.find(city => city.id === user["city_id"]).name || ''}}</td>
+          <td>{{countries[0].name}}</td>
+          <td>{{states.find(state => state.id === user["state_id"]).name}}</td>
+          <td>{{cities.find(city => city.id === user["city_id"]).name}}</td>
           <td>{{new Date(user.createdAt).toDateString()}}</td>
           <td>
-            <i @click="editTodo(user)" class="fas fa-user-edit"></i>
+            <i @click="editUser(user)" class="fas fa-user-edit"></i>
           </td>
           <td>
             <div>
@@ -39,30 +39,16 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapActions } from "vuex";
 export default {
-  name: "Users",
+  name: "UsersTable",
+  props: ["users", "countries", "cities", "states"],
   methods: {
     ...mapActions([
-      "fetchUsers",
-      "fetchCountries",
-      "fetchStates",
-      "fetchCities"
-    ]),
-    editTodo(user) {
-      console.log(user);
-    },
-    deleteUser(id) {
-      console.log(id);
-    }
+      "deleteUser",
+      "editUser"
+    ])
   },
-  computed: mapGetters(["allUsers", "allCountries", "allCities", "allStates"]),
-  created() {
-    this.fetchUsers();
-    this.fetchCountries();
-    this.fetchStates();
-    this.fetchCities();
-  }
 };
 </script>
 
