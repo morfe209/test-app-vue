@@ -1,19 +1,24 @@
 <template>
-  <div id="app">
+  <v-app>
     <Header/>
-    <div class="container">
+    <v-content class="container">
       <router-view/>
-    </div>
-  </div>
+    </v-content>
+  </v-app>
 </template>
 
 <script>
 import Header from "./components/layout/Header";
 
 export default {
-  name: "app",
+  name: "App",
   components: {
     Header
+  },
+  data() {
+    return {
+      //
+    };
   }
 };
 </script>

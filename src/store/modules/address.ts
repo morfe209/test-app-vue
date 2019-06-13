@@ -10,6 +10,9 @@ const getters = {
   allCountries: state => state.countries,
   allCities: state => state.cities,
   allStates: state => state.states,
+  countryById: (state) => (id) => {
+    return state.countries.find(countrie => countrie.id === id);
+  }, 
 };
 
 const actions = {

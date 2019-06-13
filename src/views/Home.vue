@@ -1,34 +1,27 @@
 <template>
   <div id="home">
     <div class="home">
-      <FilterUsers/>
-      <UsersTable
-        v-bind:users="users"
-        v-bind:cities="cities"
-        v-bind:countries="countries"
-        v-bind:states="states"
+      <Table
+        v-bind:users="allUsers"
+        v-bind:cities="allCities"
+        v-bind:countries="allCountries"
+        v-bind:states="allStates"
       />
     </div>
   </div>
 </template>
 
 <script>
-import UsersTable from "../components/UsersTable";
-import { mapActions } from "vuex";
-import FilterUsers from "../components/FilterUsers";
+import { mapActions, mapGetters } from "vuex";
+import Table from "../components/Table";
 
 export default {
   name: "Home",
   components: {
-    FilterUsers,
-    UsersTable
+    Table
   },
   data() {
     return {
-      users: this.$store.state.users.listUser,
-      countries: this.$store.state.address.countries,
-      cities: this.$store.state.address.cities,
-      states: this.$store.state.address.states
     };
   },
   methods: {
@@ -39,6 +32,7 @@ export default {
       "fetchCities"
     ])
   },
+  computed: mapGetters(["allUsers", "allCountries", "allCities", "allStates"]),
   created() {
     this.fetchCountries();
     this.fetchStates();
