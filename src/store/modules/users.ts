@@ -1,26 +1,28 @@
 import axios from "axios";
+import * as api from "../../api";
 
 const state = {
   listUser: []
 };
 
 const getters = {
-  allUsers: state => state.listUser
+  allUsers: state => state.listUser,
+  getUser: state => id => {
+    return state.listUser.find(user => user.id.toString() === id);
+  }
 };
 
 const actions = {
   async fetchUsers({ commit }) {
-    const response = await axios.get("http://localhost:3000/users");
+    const response = await axios.get(`${api.url}/users`);
     commit("setUsers", response.data);
   },
   async addUser({ commit }, newUser) {
-    const response = await axios.post("http://localhost:3000/users", {
-      newUser
-    });
-    commit("newTodo", response.data);
+    const response = await axios.post(`${api.url}/users`, newUser);
+    commit("newUser", response.data);
   },
   async deleteUser({ commit }, id) {
-    // await axios.delete(`http://localhost:3000/users/${id}`);
+    // await axios.delete(`${api.url}/users/${id}`);
     commit("removeUser", id);
   },
   filterUserByName({ commit }, e) {
@@ -30,11 +32,9 @@ const actions = {
   },
   async editUser({ commit }, editUser) {
     const response = await axios.put(
-      `localhost:3000/users/${editUser.id}`,
+      `${api.url}/users/${editUser.id}`,
       editUser
     );
-
-    console.log(editUser);
 
     commit("updateUser", editUser);
   }
@@ -42,7 +42,7 @@ const actions = {
 
 const mutations = {
   setUsers: (state, users) => (state.listUser = users),
-  // newUser: (state, user) => state.listUser.unshift(user),
+  newUser: (state, user) => state.listUser.unshift(user),
   removeUser: (state, id) =>
     (state.listUser = state.listUser.filter(user => user.id !== id)),
   updateUser: (state, editUser) => {

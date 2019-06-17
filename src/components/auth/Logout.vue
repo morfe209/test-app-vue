@@ -9,10 +9,9 @@ export default {
     ...mapActions(["destroyToken"])
   },
   created() {
-    this.destroyToken()
-    .then(response => {
-        this.$router.push({ name: "home" });
-      });
+    this.destroyToken().then(response => {
+      this.$router.push({ name: "home" });
+    });
   }
 };
 </script>

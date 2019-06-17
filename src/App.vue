@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import Header from "./components/layout/Header";
 
 export default {
@@ -19,6 +20,14 @@ export default {
     return {
       //
     };
+  },
+  methods: {
+    ...mapActions(["fetchCountries", "fetchStates", "fetchCities"])
+  },
+  created() {
+    this.fetchCountries();
+    this.fetchStates();
+    this.fetchCities();
   }
 };
 </script>

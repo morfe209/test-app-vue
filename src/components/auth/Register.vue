@@ -38,6 +38,8 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   name: "Register",
   data() {
@@ -48,6 +50,18 @@ export default {
       serverErrors: "",
       successMessage: ""
     };
+  },
+  methods: {
+    ...mapActions(["retrieveToken"]),
+    login(e) {
+      e.preventDefault();
+      this.retrieveToken({
+        username: this.email,
+        password: this.password
+      }).then(response => {
+        this.$router.push({ name: "home" });
+      });
+    }
   }
 };
 </script>

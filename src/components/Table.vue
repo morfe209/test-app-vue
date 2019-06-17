@@ -4,11 +4,11 @@
       <!-- <v-divider class="mx-2" inset vertical></v-divider> -->
       <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
       <v-spacer></v-spacer>
-      <v-btn color="primary" dark class="mb-2">New Item</v-btn>
+      <v-btn color="primary" @click="createItem()" dark class="mb-2">New Item</v-btn>
     </v-toolbar>
     <v-data-table
       :headers="headers"
-      :items="users"
+      :items="getAllUsers"
       :search="search"
       class="elevation-1"
       hide-actions
@@ -16,27 +16,23 @@
       <template v-slot:items="props">
         <td>{{ props.item.name }}</td>
         <td>{{ props.item.email }}</td>
-        <td>{{ props.item["phone_number"] }}</td>
-        <td>{{ getCountry(props.item["country_id"]) }}</td>
-        <td>{{ states.find(state => state.id === props.item["state_id"]).name }}</td>
-        <td>{{ cities.find(city => city.id === props.item["city_id"]).name }}</td>
+        <td>{{ props.item.phone }}</td>
+        <td>{{ props.item.country }}</td>
+        <td>{{ props.item.state }}</td>
+        <td>{{ props.item.city }}</td>
         <td>{{ new Date(props.item.createdAt).toDateString() }}</td>
         <td class="justify-center layout px-0">
-          <v-icon small class="mr-2" @click="editItem(props.item)">edit</v-icon>
-          <v-icon small @click="deleteItem(props.item)">delete</v-icon>
+          <v-icon small class="mr-2" @click="editItem(props.item.id)">edit</v-icon>
+          <v-icon small @click="deleteUser(props.item.id)">delete</v-icon>
         </td>
-      </template>
-      <template v-slot:no-data>
-        <v-btn color="primary" @click="initialize">Reset</v-btn>
       </template>
     </v-data-table>
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
-  props: ["users", "countries", "cities", "states"],
   data: () => ({
     search: "",
     headers: [
@@ -56,17 +52,35 @@ export default {
     ]
   }),
 
-  // computed: {},
+  computed: {
+    getAllUsers() {
+      let users = this.$store.getters.allUsers.map(user => {
+        return {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          phone: user["phone_number"],
+          country: this.$store.getters.countryById(user["country_id"]).name,
+          state: this.$store.getters.stateById(user["state_id"]).name,
+          city: this.$store.getters.cityById(user["city_id"]).name,
+          createdAt: user.createdAt
+        };
+      });
+      return users;
+    }
+  },
 
   watch: {},
 
   created() {},
 
   methods: {
-    ...mapGetters(["countryById", "citiesById", "statesById"]),
-    getCountry(id) {
-      console.log(id)
-      return this.countryById(id).name
+    ...mapActions(["deleteUser"]),
+    editItem(id) {
+      this.$router.push({ path: `/edit/${id}` });
+    },
+    createItem() {
+      this.$router.push({ path: "/create" });
     }
   }
 };

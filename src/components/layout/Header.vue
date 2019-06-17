@@ -9,6 +9,9 @@
       <div class="nav-item">
         <router-link to="/about">About</router-link>|
       </div>
+      <!-- <div class="nav-item">
+        <router-link to="/create">Create</router-link>|
+      </div>-->
       <div class="nav-item" v-if="!loggedIn">
         <router-link to="/login">Login</router-link>|
       </div>

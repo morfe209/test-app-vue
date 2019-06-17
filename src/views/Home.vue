@@ -1,18 +1,13 @@
 <template>
   <div id="home">
     <div class="home">
-      <Table
-        v-bind:users="allUsers"
-        v-bind:cities="allCities"
-        v-bind:countries="allCountries"
-        v-bind:states="allStates"
-      />
+      <Table/>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 import Table from "../components/Table";
 
 export default {
@@ -20,23 +15,10 @@ export default {
   components: {
     Table
   },
-  data() {
-    return {
-    };
-  },
   methods: {
-    ...mapActions([
-      "fetchUsers",
-      "fetchCountries",
-      "fetchStates",
-      "fetchCities"
-    ])
+    ...mapActions(["fetchUsers"])
   },
-  computed: mapGetters(["allUsers", "allCountries", "allCities", "allStates"]),
   created() {
-    this.fetchCountries();
-    this.fetchStates();
-    this.fetchCities();
     this.fetchUsers();
   }
 };

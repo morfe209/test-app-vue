@@ -5,6 +5,7 @@ import About from "./views/About.vue";
 import Login from "./components/auth/Login.vue";
 import Logout from "./components/auth/Logout.vue";
 import Register from "./components/auth/Register.vue";
+import CreateUpdateForm from "./components/CreateUpdateForm.vue";
 
 Vue.use(Router);
 
@@ -47,7 +48,24 @@ export default new Router({
       path: "/logout",
       name: "logout",
       component: Logout
+    },
+    {
+      path: "/create",
+      name: "create",
+      component: CreateUpdateForm,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/edit/:id",
+      name: 'edit',
+      component: CreateUpdateForm,
+      meta: {
+        requiresAuth: true
+      },      
     }
+
   ]
   // mode:'history'
 });
